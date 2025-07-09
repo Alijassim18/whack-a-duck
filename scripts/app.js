@@ -2,6 +2,7 @@ function init(){
     // Alll code goes here
 
     const gridElem=document.querySelector('.grid')
+    const scoreH=document.querySelector('#score-display')
 
     const cells=[]
 
@@ -9,6 +10,7 @@ function init(){
     const numberOfCells=gridWidth * gridWidth
 
     let duckPosition = 20 //Can put number between 0to99
+    let score= 0 
 
     function addDuck(){
         cells[duckPosition].classList.add('duck')
@@ -21,7 +23,15 @@ function init(){
             removeDuck()
             duckPosition=Math.floor(Math.random()*numberOfCells)
             addDuck()
-        },200)
+        },3000)
+    }
+    function handleClick(){
+        console.log('Handle click has run!')
+        if(event.target.classList.contains('duck')){
+            score+=10
+            scoreH.textContent=`your score is ${score}`
+            console.log(score)
+        }
     }
 
 function createGrid(){
@@ -33,6 +43,7 @@ function createGrid(){
 
 
         cell.textContent=i
+        cell.addEventListener('click',handleClick)
         cells.push(cell)
         gridElem.appendChild(cell)
     }
@@ -40,9 +51,13 @@ function createGrid(){
 
 }
    createGrid()
-   
-   play()
-//    removeDuck()
+   play() 
+
 }
 
 document.addEventListener('DOMContentLoaded',init)
+
+
+
+
+// to update the score we need add event listen to cells && handel click fun to add tpo score in the cells confains a duck
